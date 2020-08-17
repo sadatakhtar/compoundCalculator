@@ -16,10 +16,12 @@ let displayBox = document.querySelector('.output');
 let clear = document.querySelector('#clear');
 let backspaceBtn = document.getElementById('backspace');
 let decimalBtn = document.getElementById('decimal');
+let percentBtn = document.getElementById('percent');
 
 let displayVal = '0';
 let pendingVal;
 let evalStringArray = []; 
+let evaluation;
 
 
 let numBtns = document.getElementsByClassName('numbers');
@@ -65,6 +67,7 @@ let perfornOps = (clickObj) => {
             displayBox.innerText = displayVal;
             evalStringArray.push(pendingVal);
             evalStringArray.push('*');
+            
 
             break;
         
@@ -78,9 +81,16 @@ let perfornOps = (clickObj) => {
 
         case '=':
             evalStringArray.push(displayVal);
-            let evaluation = eval(evalStringArray.join(' '));
+             evaluation = eval(evalStringArray.join(' '));
             displayVal = evaluation + '';
             displayBox.innerText = displayVal;
+            //console.log(evaluation);
+
+            percentBtn.onclick = () =>{
+                evaluation = (evaluation / 2) + evaluation;
+                displayVal = evaluation;
+                displayBox.innerText = displayVal;
+            }
                
              break;
 
@@ -89,6 +99,7 @@ let perfornOps = (clickObj) => {
 
     }
 }
+
 
 for(let i=0; i< numBtns.length; i++){
     numBtns[i].addEventListener('click', updateDisplayVal, false );
